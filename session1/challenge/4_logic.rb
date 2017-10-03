@@ -10,4 +10,11 @@
 # grade(15, true)   # => "B"
 
 def grade(num_books, reads_books)
+	grades = Array("A".."D")
+	index = case num_books
+						when 0...10 then 3
+						when 10..20 then 2
+						else 1
+					end
+	grades[index - (if reads_books then 1 else 0 end)]
 end

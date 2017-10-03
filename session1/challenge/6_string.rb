@@ -8,4 +8,6 @@
 # odds_and_evens("abcdefg",false)   # => "aceg"
 
 def odds_and_evens(string, return_odds)
+	out = if return_odds then '\2' else '\1' end
+	string.gsub(/(.)(.|$)/, out)
 end
