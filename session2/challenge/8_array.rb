@@ -5,3 +5,8 @@
 # got_three? ['a', 'a', 'b']  # => false
 # got_three? ['a', 'a', 'a']  # => true
 # got_three? [1, 2, 1, 1]     # => false
+
+def got_three?(arr)
+	arr.each_cons(3).map { |a| a.uniq.length == 1 }.any?
+end
+

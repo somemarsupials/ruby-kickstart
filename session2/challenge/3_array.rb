@@ -7,5 +7,6 @@
 
 class String
   def every_other_char
+		self.chars.each_with_index.map { |c, i| i.even? ? c : "" }.join("")
   end
 end
