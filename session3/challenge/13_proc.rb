@@ -52,5 +52,25 @@
 #   end
 # end       # => ["a", "m", "r", 1, 3, 4, 9, 2.5, 9.0, 25.8]
 
-def your_sort
+# merge two lists as part of the merge sort
+def merge(left, right, &block)
+	out = []
+	block ||= Proc.new { |a, b| a <=> b }
+	until left.length == 0 or right.length == 0
+		if block.call(left.first, right.first) > 0
+			out.push(right.shift) 
+		else
+			out.push(left.shift)
+		end
+	end
+	(left.length > 0 ? left : right).each { |e| out << e }
+	out
 end
+
+def your_sort(list, &block)
+	return list if list.length <= 1 
+	midway = list.length / 2
+	halves = list.slice(0, midway), list.slice(midway, list.length)
+	merge(*halves.map { |list| your_sort(list, &block) }, &block)
+end
+

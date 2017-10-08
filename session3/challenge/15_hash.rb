@@ -38,3 +38,19 @@
 # middle head                        # => 3
 # head = {:data => 6, :next => head}
 # middle head                        # => 3
+
+def middle(head)
+	traverse = head
+	nodes = 0
+	until traverse.nil?
+		nodes += 1
+		traverse = traverse[:next]
+	end
+	count = 0
+	traverse = head
+	until count == nodes / 2
+		count += 1
+		traverse = traverse[:next]
+	end
+	traverse[:data]
+end

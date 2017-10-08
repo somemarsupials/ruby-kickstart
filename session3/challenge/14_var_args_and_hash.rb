@@ -21,11 +21,36 @@
 # problem_14 2,   5, 6, 45, 99, 13, 5, 6,  :problem => :same_ends    # => true
 # problem_14 3,   5, 6, 45, 99, 13, 5, 6,  :problem => :same_ends    # => false
 
-def problem_14
+def problem_14(*args)
+	if args.last.is_a? Hash
+		options = args.pop
+	else
+		options = {:problem => :count_clumps}
+	end
+	if options[:problem] == :count_clumps
+		count_clumps(*args)
+	else
+		same_ends(*args)
+	end
 end
 
-def same_ends
+def same_ends(n, *list)
+	return true if n <= 0
+	list[0...n] == list[-n..-1]
 end
 
-def count_clumps
+def count_clumps(*list)
+	count = 0
+	current = [nil, nil]
+	while list.length > 0
+		new = list.pop
+		next if current.map { |n| n == new }.all?
+		current.shift
+		current.push(new)
+		if current[0] == current[1]
+			count += 1
+		end
+	end
+	count
 end
+

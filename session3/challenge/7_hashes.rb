@@ -24,17 +24,26 @@
 #                      <li style='color:#0000FF;font-family:"Courier New", "Lucida Console"'>football</li>
 #                      </ol>
 
+
+
 class HTMLTag
+
   FONTS = {
     :serif      => '"Times New Roman", "Georgia"',
     :sans_serif => '"Arial", "Verdana"',
     :monospace  => '"Courier New", "Lucida Console"'
   }
 
+	COLORS = {
+		:red => "#FF0000",
+		:green => "#00FF00",
+		:blue => "#0000FF",
+	}
+
   attr_accessor :name, :innerHTML, :options
 
   # options: :multiline should be true or false
-  def initialize(name, innerHTML, options)
+  def initialize(name, innerHTML, options={})
     @name, @innerHTML, @options = name, innerHTML, options
   end
 
@@ -43,9 +52,21 @@ class HTMLTag
     FONTS[font]
   end
 
+	def color
+		color = options[:color]
+		COLORS[color]
+	end
+
   def style
-    return nil unless options[:font]
-    "style='font-family:#{font}'"
+		attrs = []
+		if options[:font]
+			attrs << "font-family:#{font}"
+		end
+		if options[:color]
+			attrs << "color:#{color}"
+		end
+		return nil if attrs == []
+    "style='#{attrs.join(";")};'"
   end
 
   def to_s

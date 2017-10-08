@@ -29,4 +29,9 @@
 # shared [1,2,3], [3,2,1]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, true]}, [1, 2, 3]]
 
 def shared(a, b)
+	output = Hash.new { |h, k| h[k] = [nil, nil] }
+	[a, b].each_with_index do |list, i|
+		list.each { |e| output[e][i] = true }
+	end
+	[output, output.select { |k, v| v.all? }.map { |k, v| k }.sort]
 end

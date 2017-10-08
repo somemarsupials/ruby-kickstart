@@ -7,3 +7,11 @@
 #
 # print_list_in_reverse head   # >> "1\n2\n"
 
+def print_list_in_reverse(head)
+	out = []
+	until head.nil?
+		out.push(head[:data])
+		head = head[:next]
+	end
+	puts out.reverse
+end

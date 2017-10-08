@@ -28,6 +28,20 @@
 #
 # create it from scratch :)
 
+def get_lists(tree)
+	out = []
+	tree.each do |k, v|
+		if v.is_a? Hash
+			get_lists(v).each { |l| out << l.unshift(k) }
+		else
+		  v.each { |_v| out << [k, _v] }
+		end
+	end
+	out
+end
 
-def pathify
+
+def pathify(tree)
+	lists = get_lists(tree)
+	lists.map { |l| "/" + l.join("/") }
 end

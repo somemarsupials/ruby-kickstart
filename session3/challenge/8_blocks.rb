@@ -26,14 +26,15 @@
 
 
 class Person
-  attr_accessor :name
+  attr_accessor :name, :age, :quote
 
-  def initialize(&initializer)
+  def initialize(attrs = {}, &initializer)
+	  attrs.each { |k, v| self.send("#{k.to_s}=", v) }	
     @initializer = initializer
-    initializer.call self
+		reinit
   end
 
   def reinit
-    @initializer.call self
+		@initializer.call self unless @initializer.nil?
   end
 end

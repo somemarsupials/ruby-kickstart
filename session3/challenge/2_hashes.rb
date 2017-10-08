@@ -8,3 +8,16 @@
 # staircase 4  # => {1 => [], 3 => [2]}
 # staircase 5  # => {1 => [], 3 => [2], 5 =>[2, 4]}
 
+def staircase(n)
+	out = Hash.new
+	Array(1..n).reverse.each { |n|
+		if n.odd?
+			out[n] = []
+		else
+			out.each { |k, v| v.push(n) }
+		end
+	}
+	out.each { |k, v| v.sort! }
+	out
+end
+
